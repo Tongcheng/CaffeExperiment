@@ -9,15 +9,15 @@ def bn_relu_conv(bottom, ks, nout, stride, pad, dropout):
     relu = L.ReLU(scale, in_place=True,negative_slope=0.5)
     conv = L.Convolution(relu, kernel_size=ks, stride=stride, 
                     num_output=nout, pad=pad, bias_term=False, weight_filler=dict(type='msra'), bias_filler=dict(type='constant'))
-    if dropout>0:
-        conv = L.Dropout(conv, dropout_ratio=dropout)
+    #if dropout>0:
+    #    conv = L.Dropout(conv, dropout_ratio=dropout)
     return conv
 
 def conv_bn_relu(bottom, ks, nout, stride, pad, dropout):
     conv = L.Convolution(bottom, kernel_size=ks, stride=stride, 
                     num_output=nout, pad=pad, bias_term=False, weight_filler=dict(type='msra'), bias_filler=dict(type='constant'))
-    if dropout>0:
-        conv = L.Dropout(conv, dropout_ratio=dropout)
+    #if dropout>0:
+    #    conv = L.Dropout(conv, dropout_ratio=dropout)
     batch_norm = L.BatchNorm(conv, in_place=False, param=[dict(lr_mult=0, decay_mult=0), dict(lr_mult=0, decay_mult=0), dict(lr_mult=0, decay_mult=0)])
     scale = L.Scale(batch_norm, bias_term=True, in_place=True, filler=dict(value=1), bias_filler=dict(value=0))
     relu = L.ReLU(scale, in_place=True,negative_slope=0.5)
