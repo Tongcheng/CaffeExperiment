@@ -31,8 +31,8 @@ def add_layer(bottom, num_filter, dropout):
     return concate
 
 def transition(bottom, num_filter, dropout):
-    conv = L.Convolution(bottom, kernel_size=1, stride=stride, 
-                    num_output=nout, pad=pad, bias_term=False, weight_filler=dict(type='msra'), bias_filler=dict(type='constant'))
+    conv = L.Convolution(bottom, kernel_size=1, stride=1, 
+                    num_output=num_filter, pad=0, bias_term=False, weight_filler=dict(type='msra'), bias_filler=dict(type='constant'))
     pooling = L.Pooling(conv, pool=P.Pooling.AVE, kernel_size=2, stride=2)
     return pooling
 
